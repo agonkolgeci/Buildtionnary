@@ -37,8 +37,16 @@ public class GameData extends GameComponent {
     public GamePlayer addGamePlayer(Player player) {
         return gamePlayers.put(player, new GamePlayer(instance, game, player));
     }
+    public void removeGamePlayer(Player player) {
+        if(hasGamePlayer(player)) {
+            gamePlayers.remove(player);
+        }
+    }
+    public boolean hasGamePlayer(Player player) {
+        return getGamePlayers().containsKey(player);
+    }
     public GamePlayer getGamePlayer(Player player) {
-        if(getGamePlayers().containsKey(player)) {
+        if(hasGamePlayer(player)) {
             return getGamePlayers().get(player);
         } else {
             return addGamePlayer(player);

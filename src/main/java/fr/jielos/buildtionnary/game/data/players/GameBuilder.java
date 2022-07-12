@@ -26,34 +26,42 @@ public class GameBuilder extends GameScheduler {
 
         this.seconds = game.getConfigController().getInt(ConfigController.Value.TIMER_BUILD);
 
+        gamePlayer.setHasBuild(true);
+
         runTaskTimer(instance, 0, 20);
     }
 
     @Override
     public void run() {
-        if(seconds > 0) {
-            instance.getInitializer().sendActionBar(gamePlayer.getPlayer(), String.format("§7Il vous reste §r%s §7...", Time.formatSeconds(seconds, ChatColor.YELLOW, true)));
+        if(gamePlayer.isPlaying()) {
+            if(seconds > 0) {
+                instance.getInitializer().sendActionBar(gamePlayer.getPlayer(), String.format("§7Il vous reste §r%s §7...", Time.formatSeconds(seconds, ChatColor.YELLOW, true)));
 
-            for(Player player : game.getGameData().getPlayers()) {
-                game.getBoardController().updatePlayerBoard(player);
+                for(Player player : game.getGameData().getPlayers()) {
+                    game.getBoardController().updatePlayerBoard(player);
+                }
+
+                seconds--;
+
+                return;
             }
-
-            seconds--;
-        } else {
-            stop();
         }
+
+        stop();
     }
 
     public void stop() {
         cancel();
 
         gameBuilders.broadcastStats(this);
-        gameBuilders.removeGamePlayer(gamePlayer, false);
         gameBuilders.nextBuilder();
     }
 
     public GamePlayer getGamePlayer() {
         return gamePlayer;
+    }
+    public Player getPlayer() {
+        return gamePlayer.getPlayer();
     }
 
     public String getWord() {

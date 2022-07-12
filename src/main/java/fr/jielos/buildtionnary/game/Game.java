@@ -13,6 +13,7 @@ import fr.jielos.buildtionnary.game.schedulers.GameLaunchScheduler;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.List;
 import java.util.Map;
@@ -90,12 +91,11 @@ public class Game extends PluginComponent {
             gameData.addGamePlayer(player);
         }
 
-        gameBuilders.initGamePlayers();
         gameBuilders.nextBuilder();
     }
 
-    private boolean canFinish() {
-        return gameBuilders.getGameRemainingBuilders().isEmpty();
+    public boolean canFinish() {
+        return gameBuilders.getRemainingBuilders().isEmpty() || gameData.getGamePlayers().size() <= 1;
     }
     public boolean checkFinish() {
         if(canFinish()) {
@@ -108,6 +108,8 @@ public class Game extends PluginComponent {
     public void finishGame() {
         setStatus(Status.FINISH);
 
+        instance.getServer().getScheduler().getPendingTasks().forEach(BukkitTask::cancel);
+
         final List<GamePlayer> gameWinners = gameData.setGameWinners(gameData.getSortedGamePlayers().stream().collect(Collectors.groupingBy(GamePlayer::getPoints)).entrySet().stream().max(Map.Entry.comparingByKey()).get().getValue());
         for(Player player : instance.getServer().getOnlinePlayers()) {
             gameController.clearContents(player);
@@ -119,7 +121,7 @@ public class Game extends PluginComponent {
         }
 
         final int maxPoints = gameWinners.get(0).getPoints();
-        instance.getServer().broadcastMessage(String.format("§a§lFélicitations à§r §7§l%s§r §a§lqui remporte%s la partie avec un total de§r §e%d points§r§a§l.", gameWinners.stream().map(gamePlayer -> gamePlayer.getPlayer().getName()).collect(Collectors.joining(", ")), gameWinners.size() > 1 ? "nt" : "", maxPoints));
+        instance.getServer().broadcastMessage(String.format(" \n§a§lFélicitations à§r §7§l%s§r §a§lqui remporte%s la partie avec un total de§r §e%d points§r§a§l.\n§7§oVous pouvez observer toutes vos statistiques depuis le tableau des score à droite de votre écran.\n ", gameWinners.stream().map(gamePlayer -> gamePlayer.getPlayer().getName()).collect(Collectors.joining(", ")), gameWinners.size() > 1 ? "nt" : "", maxPoints));
 
         new BukkitRunnable() {
             @Override

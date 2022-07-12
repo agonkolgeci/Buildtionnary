@@ -1,7 +1,6 @@
 package fr.jielos.buildtionnary.game.data;
 
 import fr.jielos.buildtionnary.Buildtionnary;
-import fr.jielos.buildtionnary.PluginComponent;
 import fr.jielos.buildtionnary.components.world.Cuboid;
 import fr.jielos.buildtionnary.game.Game;
 import fr.jielos.buildtionnary.game.GameComponent;
@@ -24,16 +23,15 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.text.Collator;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 public class GameBuilders extends GameComponent implements Listener {
 
     private final Cuboid buildArea;
     private final Collator collator;
 
-    private List<GamePlayer> gameRemainingBuilders;
     private GameBuilder gameBuilder;
     public GameBuilders(Buildtionnary instance, Game game) {
         super(instance, game);
@@ -49,9 +47,6 @@ public class GameBuilders extends GameComponent implements Listener {
         instance.getServer().getPluginManager().registerEvents(this, instance);
     }
 
-    public void initGamePlayers() {
-        this.gameRemainingBuilders = new ArrayList<>(game.getGameData().getGamePlayers().values());
-    }
     public void clearBuildArea() {
         buildArea.forEach(block -> {
             if(block.getY() > buildArea.getLowerY()) {
@@ -74,8 +69,7 @@ public class GameBuilders extends GameComponent implements Listener {
         clearBuildArea();
 
         if(!game.checkFinish()) {
-            final GamePlayer gamePlayer = gameRemainingBuilders.get(0);
-            setGameBuilder(new GameBuilder(instance, game, gamePlayer));
+            setGameBuilder(new GameBuilder(instance, game, getRandomBuilder()));
 
             for(GamePlayer anGamePlayer : game.getGameData().getGamePlayers().values()) {
                 final Player anPlayer = anGamePlayer.getPlayer();
@@ -90,8 +84,8 @@ public class GameBuilders extends GameComponent implements Listener {
                 game.getBoardController().updatePlayerBoard(anPlayer);
             }
 
-            instance.getInitializer().sendTitle(gamePlayer.getPlayer(), ChatColor.YELLOW.toString() + ChatColor.BOLD + gameBuilder.getWord().toUpperCase(), "§7À vos pinceaux !", 10, 70, 20);
-            instance.getServer().broadcastMessage(String.format(" \n§6C'est au tour de §7§l%s §6de construire le mot qui lui a été donné.\n§7§oVous devez trouver le mot par le bias de sa construction et l'écrire dans le chat le plus rapidement possible.\n ", gamePlayer.getPlayer().getName()));
+            instance.getInitializer().sendTitle(gameBuilder.getPlayer(), ChatColor.YELLOW.toString() + ChatColor.BOLD + gameBuilder.getWord().toUpperCase(), "§7À vos pinceaux !", 10, 70, 20);
+            instance.getServer().broadcastMessage(String.format(" \n§6C'est au tour de §7§l%s §6de construire le mot qui lui a été donné.\n§7§oVous devez trouver le mot par le bias de sa construction et l'écrire dans le chat le plus rapidement possible.\n ", gameBuilder.getPlayer().getName()));
         }
     }
     public boolean canNext() {
@@ -150,9 +144,9 @@ public class GameBuilders extends GameComponent implements Listener {
 
     @EventHandler
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
-        if(game.isPlaying()) {
-            final Player player = event.getPlayer();
+        final Player player = event.getPlayer();
 
+        if(game.isPlaying() && game.getGameController().isPlayer(player)) {
             final GamePlayer gamePlayer = game.getGameData().getGamePlayer(player);
             final GamePlayer gameBuilderPlayer = getGameBuilder().getGamePlayer();
 
@@ -190,15 +184,12 @@ public class GameBuilders extends GameComponent implements Listener {
         event.setFormat("§8%1$s: §7%2$s");
     }
 
-    public List<GamePlayer> getGameRemainingBuilders() {
-        return gameRemainingBuilders;
+    public List<GamePlayer> getRemainingBuilders() {
+        return game.getGameData().getGamePlayers().values().stream().filter(gamePlayer -> !gamePlayer.hasBuild() && game.getGameData().hasGamePlayer(gamePlayer.getPlayer())).collect(Collectors.toList());
     }
-    public void removeGamePlayer(GamePlayer gamePlayer, boolean disconnected) {
-        if(disconnected && gameBuilder.getGamePlayer() == gamePlayer) {
-            gameBuilder.stop();
-        }
-
-        gameRemainingBuilders.remove(gamePlayer);
+    public GamePlayer getRandomBuilder() {
+        final List<GamePlayer> remainingBuilders = getRemainingBuilders();
+        return remainingBuilders.get(instance.getSplittableRandom().nextInt(remainingBuilders.size()));
     }
 
     public GameBuilder getGameBuilder() {

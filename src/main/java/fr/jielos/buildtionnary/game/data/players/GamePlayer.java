@@ -12,15 +12,17 @@ public class GamePlayer extends GameComponent {
 
     private final Player player;
 
+    private final List<GamePlayer> foundedWords;
+    private boolean hasBuild;
     private int points;
-    private List<GamePlayer> foundedWords;
     public GamePlayer(Buildtionnary instance, Game game, Player player) {
         super(instance, game);
 
         this.player = player;
 
-        this.points = 0;
         this.foundedWords = new ArrayList<>();
+        this.hasBuild = false;
+        this.points = 0;
     }
 
     public int getPoints() {
@@ -39,12 +41,20 @@ public class GamePlayer extends GameComponent {
     public List<GamePlayer> getFoundedWords() {
         return foundedWords;
     }
+
+    public boolean hasBuild() {
+        return hasBuild;
+    }
+    public void setHasBuild(boolean hasBuild) {
+        this.hasBuild = hasBuild;
+    }
+
     public boolean hasFound(GamePlayer gamePlayer) {
         return foundedWords.contains(gamePlayer);
     }
 
     public boolean isPlaying() {
-        return game.getGameData().getPlayers().contains(player);
+        return game.getGameController().isPlayer(player);
     }
 
     public Player getPlayer() {

@@ -49,7 +49,7 @@ public class PlayerBoard extends GameComponent {
 
             lines.add("§b§lPartie");
             lines.add(String.format("§7- §fJoueurs restant: §e%d", playersSize));
-            lines.add(String.format("§7- §fConstructeur: §a%s", gameBuilder.getGamePlayer().getPlayer().getName()));
+            lines.add(String.format("§7- §fConstructeur: §a%s", gameBuilder.getPlayer().getName()));
             lines.add(String.format("§7- §fTemps restant: §r%s", Time.formatSeconds(gameBuilder.getSeconds(), ChatColor.YELLOW, false)));
 
             if(game.getGameController().isPlayer(player)) {
