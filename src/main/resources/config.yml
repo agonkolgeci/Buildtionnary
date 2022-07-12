@@ -1,0 +1,41 @@
+# Nom du mini-jeu: Buildtionnary
+# Description: Le but du jeu est de construire le mot qui vous est donné et de le faire deviner aux autres joueurs, les plus rapides à trouver le mot gagneront le + de point, celui qui aura le + de point à la fin de la partie sera le grand gagnant de la partie !
+# https://github.com/Jielos
+
+min-players: 2
+max-players: 16
+
+scoreboard:
+  name: "&8- &6&lBuildtionnary &8-"
+  footer:
+    enabled: true
+    content: "§eplay.jielos.fr"
+
+# Les temps sont exprimés en secondes.
+timers:
+  launch: 30
+  build: 120
+  finish: 20
+
+locations:
+  waiting-room:
+    ==: org.bukkit.Location
+    world: buildtionnary
+    x: 16.5
+    y: 95
+    z: 43.5
+    yaw: 180.0
+    pitch: 0.0
+  build-area:
+    '1':
+      ==: org.bukkit.Location
+      world: buildtionnary
+      x: 39
+      y: 88
+      z: 20
+    '2':
+      ==: org.bukkit.Location
+      world: buildtionnary
+      x: -7
+      y: 130
+      z: 66

@@ -1,0 +1,7 @@
+name: Buildtionnary
+description: Le but du jeu est de construire le mot qui vous est donné et de le faire deviner aux autres joueurs, les plus rapides à trouver le mot gagneront le + de point, celui qui aura le + de point à la fin de la partie sera le grand gagnant de la partie !
+authors: [ Jielos ]
+website: https://github.com/Jielos
+
+version: '${project.version}'
+main: fr.jielos.buildtionnary.Buildtionnary
