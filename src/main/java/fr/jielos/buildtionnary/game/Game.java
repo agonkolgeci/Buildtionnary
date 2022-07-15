@@ -128,7 +128,7 @@ public class Game extends PluginComponent {
             public void run() {
                 instance.getServer().reload();
             }
-        }.runTaskLater(instance, configController.getInt(ConfigController.Value.TIMER_FINISH) * 20);
+        }.runTaskLater(instance, configController.getInt(ConfigController.Value.TIMER_FINISH) * 20L);
     }
 
     public void setStatus(Status status) {

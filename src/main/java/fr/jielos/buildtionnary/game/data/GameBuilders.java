@@ -24,6 +24,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.text.Collator;
 import java.util.List;
+import java.util.Map;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
@@ -101,9 +102,9 @@ public class GameBuilders extends GameComponent implements Listener {
         final StringJoiner stringJoiner = new StringJoiner("\n");
 
         stringJoiner.add("§a§lClassement général des points");
+
         for(GamePlayer gamePlayer : gamePlayersSorted) {
-            final int position = gamePlayersSorted.indexOf(gamePlayer)+1;
-            stringJoiner.add(String.format("§6#%d §e%s §8- §7%d points", position, gamePlayer.getPlayer().getName(), gamePlayer.getPoints()));
+            stringJoiner.add(String.format("§6#%d §e%s §8- §7%d points", gamePlayersSorted.indexOf(gamePlayer)+1, gamePlayer.getPlayer().getName(), gamePlayer.getPoints()));
         }
 
         instance.getServer().broadcastMessage(String.format(" \n%s\n ", stringJoiner));

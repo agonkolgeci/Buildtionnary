@@ -34,28 +34,28 @@ public class GameData extends GameComponent {
         return spectators;
     }
 
-    public GamePlayer addGamePlayer(Player player) {
-        return gamePlayers.put(player, new GamePlayer(instance, game, player));
+    public void addGamePlayer(Player player) {
+        gamePlayers.put(player, new GamePlayer(instance, game, player));
     }
+
     public void removeGamePlayer(Player player) {
         if(hasGamePlayer(player)) {
             gamePlayers.remove(player);
         }
     }
+
     public boolean hasGamePlayer(Player player) {
-        return getGamePlayers().containsKey(player);
+        return gamePlayers.containsKey(player);
     }
+
     public GamePlayer getGamePlayer(Player player) {
-        if(hasGamePlayer(player)) {
-            return getGamePlayers().get(player);
-        } else {
-            return addGamePlayer(player);
-        }
+        return gamePlayers.get(player);
     }
 
     public Map<Player, GamePlayer> getGamePlayers() {
         return gamePlayers;
     }
+
     public List<GamePlayer> getSortedGamePlayers() {
         return gamePlayers.values().stream().sorted(Comparator.comparingInt(GamePlayer::getPoints).reversed()).collect(Collectors.toList());
     }
