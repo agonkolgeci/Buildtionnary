@@ -34,20 +34,20 @@ public class GameData extends GameComponent {
         return spectators;
     }
 
-    public void addGamePlayer(Player player) {
-        gamePlayers.put(player, new GamePlayer(instance, game, player));
-    }
+    public GamePlayer addGamePlayer(Player player) {
+        final GamePlayer gamePlayer = new GamePlayer(instance, game, player);
+        gamePlayers.put(player, gamePlayer);
 
+        return gamePlayer;
+    }
     public void removeGamePlayer(Player player) {
         if(hasGamePlayer(player)) {
             gamePlayers.remove(player);
         }
     }
-
     public boolean hasGamePlayer(Player player) {
         return gamePlayers.containsKey(player);
     }
-
     public GamePlayer getGamePlayer(Player player) {
         return gamePlayers.get(player);
     }

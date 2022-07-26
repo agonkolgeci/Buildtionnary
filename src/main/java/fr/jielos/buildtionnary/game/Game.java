@@ -28,9 +28,9 @@ public class Game extends PluginComponent {
     private final GameData gameData;
     private final GameBuilders gameBuilders;
 
-    private GameLaunchScheduler gameLaunchScheduler;
-
     private Status status;
+
+    private GameLaunchScheduler gameLaunchScheduler;
 
     public Game(Buildtionnary instance) {
         super(instance);
@@ -50,23 +50,21 @@ public class Game extends PluginComponent {
     }
 
     public boolean canLaunch() {
-        final int minPlayers = configController.getInt(ConfigController.Value.MIN_PLAYERS);
         final int playersSize = gameData.getPlayers().size();
+        final int minPlayers = configController.getInt(ConfigController.Value.MIN_PLAYERS);
         return playersSize >= minPlayers && isWaiting();
     }
     public void checkLaunch() {
         if(canLaunch() && !isLaunching()) launchGame();
     }
     public void launchGame() {
-        if(isWaiting()) {
-            setStatus(Status.LAUNCHING);
+        setStatus(Status.LAUNCHING);
 
-            gameLaunchScheduler = new GameLaunchScheduler(instance, this);
-            gameLaunchScheduler.runTaskTimer(instance, 0, 20);
-        }
+        gameLaunchScheduler = new GameLaunchScheduler(instance, this);
+        gameLaunchScheduler.runTaskTimer(instance, 0, 20);
     }
     public void cancelLaunch() {
-        if(isWaiting() && gameLaunchScheduler != null) {
+        if(isLaunching()) {
             gameLaunchScheduler.stop();
 
             setStatus(Status.WAITING_FOR_PLAYERS);
@@ -139,9 +137,9 @@ public class Game extends PluginComponent {
     }
 
     public boolean isWaiting() {
-        return status == Status.WAITING_FOR_PLAYERS || status == Status.LAUNCHING;
+        return status == Status.WAITING_FOR_PLAYERS || isLaunching();
     }
-    public boolean isLaunching() { return status == Status.LAUNCHING; }
+    public boolean isLaunching() { return status == Status.LAUNCHING && gameLaunchScheduler != null; }
     public boolean isPlaying() {
         return status == Status.PLAYING;
     }

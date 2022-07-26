@@ -7,8 +7,9 @@ public abstract class GameScheduler extends BukkitRunnable {
 
     protected final Buildtionnary instance;
     protected final Game game;
-    protected GameScheduler(Buildtionnary instance, Game game) {
+    public GameScheduler(Buildtionnary instance, Game game) {
         this.instance = instance;
         this.game = game;
     }
+
 }

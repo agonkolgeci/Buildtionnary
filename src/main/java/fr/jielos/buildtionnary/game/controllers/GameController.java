@@ -73,7 +73,7 @@ public class GameController extends GameComponent implements Listener {
         game.getBoardController().updatePlayerBoard(player);
     }
 
-    public void addSpectator(Player player) {
+    private void addSpectator(Player player) {
         player.teleport(game.getConfigController().getLocation(ConfigController.Value.WAITING_ROOM));
         player.setGameMode(GameMode.SPECTATOR);
 

@@ -25,8 +25,8 @@ public final class Buildtionnary extends JavaPlugin {
         saveDefaultConfig();
 
         try {
-            this.game = new Game(this);
-            this.game.initGame();
+            game = new Game(this);
+            game.initGame();
 
             new ListenersController(instance, game).register();
         } catch (Exception exception) {

@@ -68,7 +68,7 @@ public class PlayerBoard extends GameComponent {
 
                     stringJoiner.add(ChatColor.DARK_GRAY + String.format("#%d", sortedGamePlayers.indexOf(anGamePlayer)+1));
                     stringJoiner.add(ChatColor.WHITE + chatColor + String.format("%s§r:", anGamePlayer.getPlayer().getName()));
-                    stringJoiner.add(ChatColor.AQUA + String.format("%d pts", gamePlayer.getPoints()));
+                    stringJoiner.add(ChatColor.AQUA + String.format("%d pts", anGamePlayer.getPoints()));
 
                     lines.add(stringJoiner.toString());
                 }
@@ -83,8 +83,8 @@ public class PlayerBoard extends GameComponent {
 
                 if(gamePlayer == gameBuilder.getGamePlayer()) {
                     lines.add(getVoidLine());
-                    lines.add("§a§lÀ vos pinceaux");
-                    lines.add(String.format("§7Mot sélectioné: §e%s§7.", gameBuilder.getWord()));
+                    lines.add("§a§lVous devez construire");
+                    lines.add(String.format("§8⋆ §e%s§7.", gameBuilder.getWord()));
                 }
             } else if(game.isFinish()) {
                 final List<GamePlayer> gameWinners = game.getGameData().getGameWinners();

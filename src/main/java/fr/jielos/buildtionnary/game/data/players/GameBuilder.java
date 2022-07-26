@@ -8,6 +8,7 @@ import fr.jielos.buildtionnary.game.GameScheduler;
 import fr.jielos.buildtionnary.game.controllers.ConfigController;
 import fr.jielos.buildtionnary.game.data.GameBuilders;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 public class GameBuilder extends GameScheduler {
@@ -38,6 +39,11 @@ public class GameBuilder extends GameScheduler {
                 instance.getInitializer().sendActionBar(gamePlayer.getPlayer(), String.format("§7Il vous reste §r%s §7...", Time.formatSeconds(seconds, ChatColor.YELLOW, true)));
 
                 for(Player player : game.getGameData().getPlayers()) {
+                    if(seconds <= 5) {
+                        player.playSound(player.getLocation(), Sound.NOTE_PLING, 1, 2);
+                        instance.getInitializer().sendTitle(player, ChatColor.RED.toString() + seconds, null, 0, 40, 20);
+                    }
+
                     game.getBoardController().updatePlayerBoard(player);
                 }
 

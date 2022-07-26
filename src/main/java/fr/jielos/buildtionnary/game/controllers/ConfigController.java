@@ -46,10 +46,7 @@ public class ConfigController extends GameComponent {
     public Cuboid getArea(Value value) {
         final Location firstLocation = (Location) fileConfiguration.get(value.getPath() + ".1");
         final Location secondLocation = (Location) fileConfiguration.get(value.getPath() + ".2");
-        if(firstLocation == null || secondLocation == null) {
-            System.out.println("yes");
-            return null;
-        }
+        if(firstLocation == null || secondLocation == null) return null;
 
         return new Cuboid(firstLocation, secondLocation);
     }
