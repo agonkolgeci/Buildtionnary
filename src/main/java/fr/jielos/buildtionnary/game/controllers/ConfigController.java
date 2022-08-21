@@ -1,7 +1,6 @@
 package fr.jielos.buildtionnary.game.controllers;
 
 import fr.jielos.buildtionnary.Buildtionnary;
-import fr.jielos.buildtionnary.PluginComponent;
 import fr.jielos.buildtionnary.components.world.Cuboid;
 import fr.jielos.buildtionnary.game.Game;
 import fr.jielos.buildtionnary.game.GameComponent;
