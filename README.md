@@ -13,4 +13,4 @@ Le but du jeu est de construire le mot qui vous est donné et de le faire devine
 
 ## Crédits
 - Utilisation de l'API [Netherboard](https://github.com/MinusKube/Netherboard/) par [MinusKube](https://github.com/MinusKube)
-- Inspiration de [Craftok](https://craftok.fr/)
+- Inspiration du serveur Minecraft [Craftok](https://craftok.fr/)
