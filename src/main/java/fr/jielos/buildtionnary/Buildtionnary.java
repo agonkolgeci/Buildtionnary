@@ -1,8 +1,7 @@
 package fr.jielos.buildtionnary;
 
-import fr.jielos.buildtionnary.components.display.Initializer;
-import fr.jielos.buildtionnary.game.Game;
-import fr.jielos.buildtionnary.server.controllers.ListenersController;
+import fr.jielos.buildtionnary.core.Game;
+import fr.jielos.buildtionnary.api.event.ListenersController;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,7 +10,6 @@ import java.util.SplittableRandom;
 public final class Buildtionnary extends JavaPlugin {
 
     private static Buildtionnary instance;
-    private Initializer initializer;
     private SplittableRandom splittableRandom;
 
     private Game game;
@@ -19,7 +17,6 @@ public final class Buildtionnary extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        initializer = new Initializer();
         splittableRandom = new SplittableRandom();
 
         try {
@@ -47,10 +44,6 @@ public final class Buildtionnary extends JavaPlugin {
 
     public static Buildtionnary getInstance() {
         return instance;
-    }
-
-    public Initializer getInitializer() {
-        return initializer;
     }
 
     public SplittableRandom getSplittableRandom() {

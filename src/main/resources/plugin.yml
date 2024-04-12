@@ -6,4 +6,4 @@ website: https://github.com/Jielos
 main: fr.jielos.buildtionnary.Buildtionnary
 
 version: '${project.version}'
-api-version: '1.20'
+api-version: '1.19'
