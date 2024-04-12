@@ -22,8 +22,6 @@ public final class Buildtionnary extends JavaPlugin {
         initializer = new Initializer();
         splittableRandom = new SplittableRandom();
 
-        saveDefaultConfig();
-
         try {
             game = new Game(this);
             game.initGame();

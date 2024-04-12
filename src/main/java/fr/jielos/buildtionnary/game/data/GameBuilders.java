@@ -49,13 +49,7 @@ public class GameBuilders extends GameComponent implements Listener {
     }
 
     public void clearBuildArea() {
-        buildArea.forEach(block -> {
-            if(block.getY() > buildArea.getLowerY()) {
-                block.setType(Material.AIR);
-            } else {
-                block.setType(Material.GRASS);
-            }
-        });
+        buildArea.forEach(block -> block.setType(Material.AIR, false));
 
         for(Chunk chunk : buildArea.getChunks()) {
             for(Entity entity : chunk.getEntities()) {

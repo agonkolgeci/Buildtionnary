@@ -9,33 +9,33 @@ scoreboard:
   name: "&8- &6&lBuildtionnary &8-"
   footer:
     enabled: true
-    content: "&eplay.jielos.fr"
+    content: "&enexus.agonkolgeci.com"
 
 # Les temps sont exprimés en secondes.
 timers:
   launch: 30
   build: 120
-  finish: 20
+  finish: 10
 
 locations:
   waiting-room:
     ==: org.bukkit.Location
-    world: buildtionnary
-    x: 16.5
-    y: 95
-    z: 43.5
-    yaw: 180.0
+    world: buildtionnary_world
+    x: 0.5
+    y: 1.5
+    z: 0.5
+    yaw: 0.0
     pitch: 0.0
   build-area:
     '1':
       ==: org.bukkit.Location
-      world: buildtionnary
-      x: 39
-      y: 88
-      z: 20
+      world: buildtionnary_world
+      x: -13
+      y: 1
+      z: 13
     '2':
       ==: org.bukkit.Location
-      world: buildtionnary
-      x: -7
-      y: 130
-      z: 66
+      world: buildtionnary_world
+      x: 13
+      y: 25
+      z: -13

@@ -3,5 +3,7 @@ description: Le but du jeu est de construire le mot qui vous est donné et de le
 authors: [ Jielos ]
 website: https://github.com/Jielos
 
-version: '${project.version}'
 main: fr.jielos.buildtionnary.Buildtionnary
+
+version: '${project.version}'
+api-version: '1.20'

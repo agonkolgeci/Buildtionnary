@@ -15,6 +15,7 @@ public class ConfigController extends GameComponent {
     public ConfigController(Buildtionnary instance, Game game) {
         super(instance, game);
 
+        this.instance.saveDefaultConfig();
         this.fileConfiguration = instance.getConfig();
     }
 
