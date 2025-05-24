@@ -70,7 +70,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# Windows thumbnail cache files
+# Windows thumbnail data files
 Thumbs.db
 Thumbs.db:encryptable
 ehthumbs.db
