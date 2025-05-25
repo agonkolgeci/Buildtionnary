@@ -209,7 +209,7 @@ public class BuildersManager implements PluginAdapter, ListenerAdapter {
                         return;
                     }
 
-                    if(event.message() instanceof TextComponent text && WordsAPI.COLLATOR.compare(builder.getWord(), text.content()) == 0) {
+                    if(event.message() instanceof TextComponent text && WordsAPI.test(builder.getWord(), text.content())) {
                         gamePlayer.getFoundedBuilds().add(builder);
 
                         final int pointsToBuilder = 10;

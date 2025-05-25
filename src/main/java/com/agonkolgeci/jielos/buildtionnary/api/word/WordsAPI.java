@@ -33,4 +33,12 @@ public class WordsAPI {
         return StringUtils.capitalize(WORDS.get(Buildtionnary.SPLITTABLE_RANDOM.nextInt(WORDS.size())));
     }
 
+    public static boolean test(String word, String entry) {
+        if(COLLATOR.compare(word, entry) == 0) return true;
+        if(COLLATOR.compare(word, entry + "s") == 0) return true;
+        if(COLLATOR.compare(word, entry + "x") == 0) return true;
+
+        return false;
+    }
+
 }

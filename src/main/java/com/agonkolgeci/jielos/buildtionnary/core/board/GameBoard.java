@@ -58,8 +58,8 @@ public class GameBoard extends FastBoard {
                     lines.add(Component.text().append(Component.text("•", NamedTextColor.DARK_GRAY)).appendSpace().append(Component.text("Constructeur:")).appendSpace().append(Component.text(builder.getGamePlayer().getPlayer().getName(), NamedTextColor.YELLOW)).colorIfAbsent(NamedTextColor.GRAY).build());
                     lines.add(Component.text().append(Component.text("•", NamedTextColor.DARK_GRAY)).appendSpace().append(Component.text("Temps restant:")).appendSpace().append(Component.text(DateUtils.formatSeconds(builder.getSeconds()), NamedTextColor.YELLOW)).colorIfAbsent(NamedTextColor.GRAY).build());
 
-                    if(gamePlayer == builder.getGamePlayer()) {
-                        lines.add(Component.text().append(Component.text("•", NamedTextColor.DARK_GRAY)).appendSpace().append(Component.text("Votre mot:")).appendSpace().append(Component.text(builder.getWord(), NamedTextColor.GREEN)).colorIfAbsent(NamedTextColor.GRAY).build());
+                    if(gamePlayer == builder.getGamePlayer() || (gamePlayer != null && gamePlayer.hasFound(builder))) {
+                        lines.add(Component.text().append(Component.text("•", NamedTextColor.DARK_GRAY)).appendSpace().append(Component.text("Mot:")).appendSpace().append(Component.text(builder.getWord(), NamedTextColor.GREEN)).colorIfAbsent(NamedTextColor.GRAY).build());
                     } else {
                         lines.add(Component.text().append(Component.text("•", NamedTextColor.DARK_GRAY)).appendSpace().append(Component.text("Indice:")).appendSpace().append(Component.text(builder.getHint(), NamedTextColor.GREEN)).colorIfAbsent(NamedTextColor.GRAY).build());
                     }
